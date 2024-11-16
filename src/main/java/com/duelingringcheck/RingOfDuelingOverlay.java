@@ -41,19 +41,19 @@ public class RingOfDuelingOverlay extends Overlay {
     {
         this.plugin = plugin;
         this.config = config;
-        setLayer(OverlayLayer.ABOVE_WIDGETS);
-        setPosition(OverlayPosition.TOP_RIGHT);
-        setPreferredPosition(OverlayPosition.TOP_RIGHT);
-        loadRecoilImage();
+        setLayer(OverlayLayer.ABOVE_SCENE);
+        setPriority(PRIORITY_LOW);
+        setPosition(OverlayPosition.DYNAMIC);
+        loadRingOfDuelingImage();
     }
 
-    private static void loadRecoilImage() {
+    private static void loadRingOfDuelingImage() {
         ringOfDuelingIcon = ImageUtil.loadImageResource(RingOfDuelingPlugin.class, "/ring_of_dueling.png");
     }
 
     @Override
     public Dimension render(Graphics2D graphics){
-        if (!plugin.isDuelingRingisWorn()) {
+        if (plugin.isDuelingRingisWorn()) {
             return null;
         }
         ImageComponent imagePanelComponent = new ImageComponent(ringOfDuelingIcon);

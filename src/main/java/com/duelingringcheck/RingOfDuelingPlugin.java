@@ -15,6 +15,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.api.InventoryID;
 import net.runelite.api.ItemContainer;
 import net.runelite.api.events.GameTick;
+import net.runelite.client.ui.overlay.OverlayManager;
 
 
 @Slf4j
@@ -29,10 +30,17 @@ public class RingOfDuelingPlugin extends Plugin
 	@Inject
 	private RingOfDuelingConfig config;
 
+	@Inject
+	RingOfDuelingOverlay ringOfDuelingOverlay;
+
+	@Inject
+	private OverlayManager overlayManager;
+
 	@Override
 	protected void startUp() throws Exception
 	{
 		log.info("Ring of Dueling Plugin Started!");
+		overlayManager.add(ringOfDuelingOverlay);
 	}
 
 	@Override
