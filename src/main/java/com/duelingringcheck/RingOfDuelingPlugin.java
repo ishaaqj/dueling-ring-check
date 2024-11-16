@@ -6,11 +6,16 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
+import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.api.InventoryID;
+import net.runelite.api.ItemContainer;
+import net.runelite.api.events.GameTick;
+
 
 @Slf4j
 @PluginDescriptor(
@@ -45,9 +50,30 @@ public class RingOfDuelingPlugin extends Plugin
 		}
 	}
 
+	@Subscribe
+	public void onChatMessage(ChatMessage chatMessage){
+		if (chatMessage.getMessage().equals("Hi!")){
+			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "lolsquid" + chatMessage.getMessage(), null);
+			if (isDuelingRingisWorn()){
+				client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Dueling ring is worn", null);
+			}
+		}
+	}
+
 	@Provides
 	RingOfDuelingConfig provideConfig(ConfigManager configManager)
 	{
 		return configManager.getConfig(RingOfDuelingConfig.class);
+	}
+
+	public boolean isDuelingRingisWorn() {
+		return client.getItemContainer(InventoryID.EQUIPMENT).contains(2552);
+	}
+
+	@Subscribe
+	public void onGameTick(GameTick event) {
+		if (isDuelingRingisWorn()){
+			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Dueling ring is worn", null);
+		}
 	}
 }
