@@ -1,4 +1,4 @@
-package com.example;
+package com.duelingringcheck;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
@@ -14,26 +14,26 @@ import net.runelite.client.plugins.PluginDescriptor;
 
 @Slf4j
 @PluginDescriptor(
-	name = "Example"
+	name = "Ring of Dueling Reminder"
 )
-public class ExamplePlugin extends Plugin
+public class RingOfDuelingPlugin extends Plugin
 {
 	@Inject
 	private Client client;
 
 	@Inject
-	private ExampleConfig config;
+	private RingOfDuelingConfig config;
 
 	@Override
 	protected void startUp() throws Exception
 	{
-		log.info("Example started!");
+		log.info("Ring of Dueling Plugin Started!");
 	}
 
 	@Override
 	protected void shutDown() throws Exception
 	{
-		log.info("Example stopped!");
+		log.info("Ring of Dueling Plugin Ended");
 	}
 
 	@Subscribe
@@ -46,8 +46,8 @@ public class ExamplePlugin extends Plugin
 	}
 
 	@Provides
-	ExampleConfig provideConfig(ConfigManager configManager)
+	RingOfDuelingConfig provideConfig(ConfigManager configManager)
 	{
-		return configManager.getConfig(ExampleConfig.class);
+		return configManager.getConfig(RingOfDuelingConfig.class);
 	}
 }
