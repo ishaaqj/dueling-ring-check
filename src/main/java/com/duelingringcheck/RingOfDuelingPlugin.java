@@ -21,7 +21,8 @@ import net.runelite.client.ui.overlay.OverlayManager;
 
 @Slf4j
 @PluginDescriptor(
-	name = "Ring of Dueling Reminder"
+	name = "Ring of Dueling Reminder",
+		description = "Reminds you to get / equip your ring of dueling!"
 )
 public class RingOfDuelingPlugin extends Plugin
 {
@@ -39,12 +40,9 @@ public class RingOfDuelingPlugin extends Plugin
 
 	private boolean checkInventory = false;
 
-
-
 	@Override
-	protected void startUp() throws Exception
-	{
-		log.info("Ring of Dueling Plugin Started!");
+	protected void startUp() throws Exception{
+
 		overlayManager.add(ringOfDuelingOverlay);
 	}
 
@@ -53,29 +51,12 @@ public class RingOfDuelingPlugin extends Plugin
 	{
 		log.info("Ring of Dueling Plugin Ended");
 	}
-
-	@Subscribe
-	public void onGameStateChanged(GameStateChanged gameStateChanged)
-	{
-		if (gameStateChanged.getGameState() == GameState.LOGGED_IN)
-		{
-			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Example says " + config.greeting(), null);
-		}
-	}
-
 	@Subscribe
 	public void onChatMessage(ChatMessage chatMessage){
 		if (chatMessage.getMessage().equals("Hi!")){
 			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "lolsquid" + Boolean.toString(config.checkInventory()), null);
 		}
 	}
-
-	//@Subscribe
-	//public void onConfigChanged(ConfigChanged configChanged){
-	//	checkInventory = config.checkInventory();
-	//	client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Inventory is " + checkInventory, null);
-//	}
-
 	@Provides
 	RingOfDuelingConfig provideConfig(ConfigManager configManager)
 	{

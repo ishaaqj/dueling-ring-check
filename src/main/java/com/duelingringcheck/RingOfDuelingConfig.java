@@ -3,7 +3,7 @@ package com.duelingringcheck;
 import net.runelite.client.config.*;
 import java.awt.*;
 
-@ConfigGroup("example")
+@ConfigGroup("RingOfDuelingReminder")
 public interface RingOfDuelingConfig extends Config
 {
 	@ConfigItem(
