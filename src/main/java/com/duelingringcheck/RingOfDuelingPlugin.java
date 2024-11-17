@@ -10,6 +10,7 @@ import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.api.InventoryID;
@@ -36,6 +37,10 @@ public class RingOfDuelingPlugin extends Plugin
 	@Inject
 	private OverlayManager overlayManager;
 
+	private boolean checkInventory = false;
+
+
+
 	@Override
 	protected void startUp() throws Exception
 	{
@@ -61,12 +66,15 @@ public class RingOfDuelingPlugin extends Plugin
 	@Subscribe
 	public void onChatMessage(ChatMessage chatMessage){
 		if (chatMessage.getMessage().equals("Hi!")){
-			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "lolsquid" + chatMessage.getMessage(), null);
-			if (isDuelingRingInEquipment()){
-				client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Dueling ring is worn", null);
-			}
+			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "lolsquid" + Boolean.toString(config.checkInventory()), null);
 		}
 	}
+
+	//@Subscribe
+	//public void onConfigChanged(ConfigChanged configChanged){
+	//	checkInventory = config.checkInventory();
+	//	client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Inventory is " + checkInventory, null);
+//	}
 
 	@Provides
 	RingOfDuelingConfig provideConfig(ConfigManager configManager)
@@ -82,13 +90,5 @@ public class RingOfDuelingPlugin extends Plugin
 	public boolean isDuelingRingInInventory() {
 		ItemContainer inventory = client.getItemContainer(InventoryID.INVENTORY);
 		return (inventory.contains(2552) || inventory.contains(2554) || inventory.contains(2556) || inventory.contains(2558) || inventory.contains(2560) || inventory.contains(2562) || inventory.contains(2564) || inventory.contains(2566));
-	}
-
-
-	@Subscribe
-	public void onGameTick(GameTick event) {
-		if (isDuelingRingInEquipment()){
-			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Dueling ring is worn", null);
-		}
 	}
 }

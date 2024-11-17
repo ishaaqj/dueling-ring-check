@@ -17,10 +17,10 @@ import net.runelite.client.util.ImageUtil;
 @Slf4j
 public class RingOfDuelingOverlay extends Overlay {
     private final RingOfDuelingPlugin plugin;
-    private final RingOfDuelingPlugin config;
+    private final RingOfDuelingConfig config;
     private static BufferedImage ringOfDuelingIcon;
     @Inject
-    public RingOfDuelingOverlay(final RingOfDuelingPlugin plugin, final RingOfDuelingPlugin config)
+    public RingOfDuelingOverlay(final RingOfDuelingPlugin plugin, final RingOfDuelingConfig config)
     {
         this.plugin = plugin;
         this.config = config;
@@ -36,7 +36,12 @@ public class RingOfDuelingOverlay extends Overlay {
 
     @Override
     public Dimension render(Graphics2D graphics){
-        if (plugin.isDuelingRingInEquipment()) {
+        if (config.checkInventory()){
+            if (plugin.isDuelingRingInEquipment() || plugin.isDuelingRingInInventory()){
+                return null;
+            }
+        }
+        else if (plugin.isDuelingRingInEquipment() ) {
             return null;
         }
         ImageComponent imagePanelComponent = new ImageComponent(ringOfDuelingIcon);
