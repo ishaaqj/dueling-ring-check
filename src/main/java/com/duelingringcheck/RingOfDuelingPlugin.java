@@ -62,7 +62,7 @@ public class RingOfDuelingPlugin extends Plugin
 	public void onChatMessage(ChatMessage chatMessage){
 		if (chatMessage.getMessage().equals("Hi!")){
 			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "lolsquid" + chatMessage.getMessage(), null);
-			if (isDuelingRingisWorn()){
+			if (isDuelingRingInEquipment()){
 				client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Dueling ring is worn", null);
 			}
 		}
@@ -74,13 +74,20 @@ public class RingOfDuelingPlugin extends Plugin
 		return configManager.getConfig(RingOfDuelingConfig.class);
 	}
 
-	public boolean isDuelingRingisWorn() {
-		return client.getItemContainer(InventoryID.EQUIPMENT).contains(2552);
+	public boolean isDuelingRingInEquipment() {
+		ItemContainer equipment = client.getItemContainer(InventoryID.EQUIPMENT);
+		return (equipment.contains(2552) || equipment.contains(2554) || equipment.contains(2556) || equipment.contains(2558) || equipment.contains(2560) || equipment.contains(2562) || equipment.contains(2564) || equipment.contains(2566));
 	}
+
+	public boolean isDuelingRingInInventory() {
+		ItemContainer inventory = client.getItemContainer(InventoryID.INVENTORY);
+		return (inventory.contains(2552) || inventory.contains(2554) || inventory.contains(2556) || inventory.contains(2558) || inventory.contains(2560) || inventory.contains(2562) || inventory.contains(2564) || inventory.contains(2566));
+	}
+
 
 	@Subscribe
 	public void onGameTick(GameTick event) {
-		if (isDuelingRingisWorn()){
+		if (isDuelingRingInEquipment()){
 			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Dueling ring is worn", null);
 		}
 	}

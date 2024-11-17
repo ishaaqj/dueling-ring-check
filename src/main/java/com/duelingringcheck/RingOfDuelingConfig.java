@@ -19,12 +19,12 @@ public interface RingOfDuelingConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "countOverHeads",
-			name = "Count Enemy Overheads",
-			description = "Counts the number of each protection prayer attackable targets not in your CC are currently using",
+			keyName = "checkInventory",
+			name = "Check Inventory",
+			description = "Uncheck if you do not want to check the inventory as well",
 			position = 1
 	)
-	default boolean countOverHeads()
+	default boolean checkInventory()
 	{
 		return true;
 	}

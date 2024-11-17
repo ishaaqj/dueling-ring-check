@@ -1,33 +1,16 @@
 package com.duelingringcheck;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.util.Arrays;
 import javax.inject.Inject;
-import javax.inject.Singleton;
-import net.runelite.api.Client;
-import net.runelite.api.Varbits;
-import net.runelite.api.WorldType;
-import net.runelite.client.ui.overlay.Overlay;
-import net.runelite.client.ui.overlay.OverlayLayer;
-import net.runelite.client.ui.overlay.OverlayPosition;
-import net.runelite.client.ui.overlay.OverlayPriority;
-import org.apache.commons.lang3.ArrayUtils;
 
-import com.duelingringcheck.RingOfDuelingPlugin;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
-import javax.inject.Inject;
-import lombok.extern.slf4j.Slf4j;
-import net.runelite.client.plugins.PluginInstantiationException;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
-import net.runelite.client.ui.overlay.OverlayPriority;
+
+import java.awt.image.BufferedImage;
+
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.ui.overlay.components.ImageComponent;
 import net.runelite.client.util.ImageUtil;
 
@@ -43,7 +26,7 @@ public class RingOfDuelingOverlay extends Overlay {
         this.config = config;
         setLayer(OverlayLayer.ABOVE_SCENE);
         setPriority(PRIORITY_LOW);
-        setPosition(OverlayPosition.DYNAMIC);
+        setPosition(OverlayPosition.ABOVE_CHATBOX_RIGHT);
         loadRingOfDuelingImage();
     }
 
@@ -53,7 +36,7 @@ public class RingOfDuelingOverlay extends Overlay {
 
     @Override
     public Dimension render(Graphics2D graphics){
-        if (plugin.isDuelingRingisWorn()) {
+        if (plugin.isDuelingRingInEquipment()) {
             return null;
         }
         ImageComponent imagePanelComponent = new ImageComponent(ringOfDuelingIcon);
