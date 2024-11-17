@@ -10,7 +10,7 @@ public interface RingOfDuelingConfig extends Config
 			keyName = "checkInventory",
 			name = "Check Inventory",
 			description = "Uncheck if you do not want to check the inventory as well",
-			position = 1
+			position = 0
 	)
 	default boolean checkInventory()
 	{
