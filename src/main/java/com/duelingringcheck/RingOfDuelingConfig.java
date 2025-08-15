@@ -6,6 +6,7 @@ import java.awt.*;
 @ConfigGroup("RingOfDuelingReminder")
 public interface RingOfDuelingConfig extends Config
 {
+	String GROUP = "RingOfDuelingReminder";
 	@ConfigItem(
 			keyName = "checkInventory",
 			name = "Check Inventory",
